@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PlaylistBuilder.ViewModels"
+             x:Class="PlaylistBuilder.Views.LoginView"
+             Shell.NavBarIsVisible="False"             
+             Title="LoginView" x:DataType="vm:LoginViewModel">
+    <Grid>
+        <Image Source="singer.jpg" Aspect="AspectFill" />
+        <Button Text="Login to Spotify"
+                Command="{Binding OpenLoginCommand}"
+                VerticalOptions="Center"
+                HorizontalOptions="Center" />
+        <Frame x:Name="Login" IsVisible="False" CornerRadius="10" BorderColor="Black" Padding="0">
+            <WebView x:Name="LoginWeb" />
+        </Frame>
+    </Grid>
+</ContentPage>
