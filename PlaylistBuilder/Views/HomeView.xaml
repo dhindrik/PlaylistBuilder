@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvvm:TinyView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PlaylistBuilder.ViewModels"
+             xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:behaviors="clr-namespace:PlaylistBuilder.Behaviors"
+             x:Class="PlaylistBuilder.Views.HomeView"
+             Title="HomeView" x:DataType="vm:HomeViewModel"
+             x:Name="ThisPage">
+    <mvvm:TinyView.Resources>
+        <toolkit:InvertedBoolConverter x:Key="InvertBool" />
+    </mvvm:TinyView.Resources>
+    <Shell.TitleView>
+        <SearchBar IsVisible="{Binding IsSearching}"
+                   Text="{Binding SearchText}"
+                   SearchCommand="{Binding SearchCommand}"
+                   TextColor="{StaticResource AccentTextColor}">
+            <SearchBar.Behaviors>
+                <behaviors:FocusBehavior BindingContext="{Binding Source={x:Reference ThisPage}, Path=BindingContext}"
+                    IsFocused="{Binding IsSearching}" />
+            </SearchBar.Behaviors>
+        </SearchBar>
+    </Shell.TitleView>
+    <Grid Padding="10">
+        <ActivityIndicator IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" />
+        <ScrollView IsVisible="{Binding IsNotBusy}">
+            <VerticalStackLayout>
+                <SearchBar IsVisible="{Binding IsSearching, Converter={StaticResource InvertBool}}"
+                   Text="{Binding SearchText}" SearchCommand="{Binding SearchCommand}">
+                    <SearchBar.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="Focused"
+                                                Command="{Binding StartSearchCommand}" />
+                    </SearchBar.Behaviors>
+                </SearchBar>
+                <VerticalStackLayout IsVisible="{Binding HasResult}" Spacing="10">
+                    <Label Text="Artists" FontSize="Title" />
+                    <CollectionView ItemsSource="{Binding Artists}" ItemsLayout="HorizontalList">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="vm:SearchItemViewModel">
+                                <VerticalStackLayout Padding="0,0,10,0" WidthRequest="150">
+                                    <Image Source="{Binding ImageUrl, Mode=OneTime}"
+                             WidthRequest="150"
+                             HeightRequest="150"
+                             Aspect="AspectFill"/>
+                                    <Label Text="{Binding Title}" />
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <Label Text="Albums" FontSize="Title" />
+                    <CollectionView ItemsSource="{Binding Albums}" ItemsLayout="HorizontalList">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="vm:SearchItemViewModel">
+                                <VerticalStackLayout Padding="0,0,10,0" WidthRequest="150">
+                                    <Image Source="{Binding ImageUrl, Mode=OneTime}"
+                             WidthRequest="150"
+                             HeightRequest="150"
+                             Aspect="AspectFill"/>
+                                    <Label Text="{Binding Title}" />
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <Label Text="Tracks" FontSize="Title" />
+                    <CollectionView ItemsSource="{Binding Tracks}">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="vm:SearchItemViewModel">
+                                <HorizontalStackLayout Spacing="10" Padding="0,0,0,10">
+                                    <Image Source="{Binding ImageUrl, Mode=OneTime}"
+                             WidthRequest="30"
+                             HeightRequest="30"
+                             Aspect="AspectFill"/>
+                                    <VerticalStackLayout>
+                                        <Label Text="{Binding Title}" FontSize="Header" VerticalOptions="Center" />
+                                        <Label Text="{Binding Title}" FontSize="Caption" VerticalOptions="Center" />
+                                    </VerticalStackLayout>
+                                </HorizontalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</mvvm:TinyView>

@@ -1,29 +1,50 @@
-﻿using System;
-using CommunityToolkit.Mvvm.ComponentModel;
-using PlaylistBuilder.Services;
+﻿namespace PlaylistBuilder.ViewModels;
 
-namespace PlaylistBuilder.ViewModels
+public partial class LoginViewModel : ViewModel
 {
-	public partial class LoginViewModel : ViewModel
+	public LoginViewModel(ISpotifyService spotifyService)
 	{
-		public LoginViewModel(ISpotifyService spotifyService)
-		{
             this.spotifyService = spotifyService;
         }
 
-		[ObservableProperty]
-		private bool showLogin;
+        public async override Task Initialize()
+        {
+            await base.Initialize();
+
+		IsBusy = true;
+
+		try
+		{
+			if (await spotifyService.IsSignedIn())
+			{
+				await Navigation.NavigateTo("//Home");
+			}
+		}
+		catch (Exception ex)
+		{
+			await HandleException(ex);
+		}
+
+		IsBusy = false;
+        }
+
+        [ObservableProperty]
+	private bool showLogin;
         private readonly ISpotifyService spotifyService;
 
         [RelayCommand]
-		public void OpenLogin()
-		{
-			ShowLogin = true;
-		}
+	public void OpenLogin()
+	{
+		ShowLogin = true;
+	}
 
-		public async Task HandleAuthCode(string code)
+	public async Task HandleAuthCode(string code)
+	{
+		var result = await spotifyService.Initialize(code);
+
+		if(result)
 		{
-			await spotifyService.Initialize(code);
+			await Navigation.NavigateTo("Home");
 		}
 	}
 }

@@ -4,7 +4,7 @@ using static System.Net.WebRequestMethods;
 
 namespace PlaylistBuilder.Views;
 
-public partial class LoginView : ContentPage
+public partial class LoginView
 {
     private readonly LoginViewModel loginViewModel;
 

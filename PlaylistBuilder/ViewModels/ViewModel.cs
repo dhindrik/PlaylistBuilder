@@ -6,6 +6,13 @@ namespace PlaylistBuilder.ViewModels
 		public ViewModel()
 		{
 		}
+
+		protected virtual Task HandleException(Exception ex)
+		{
+			Console.Write(ex);
+
+			return Task.CompletedTask;
+		}
 	}
 }
 

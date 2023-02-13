@@ -11,5 +11,12 @@
         ContentTemplate="{DataTemplate views:LoginView}"
         Route="Login" />
 
+    <TabBar Route="Main">
+        <ShellContent
+        Title="Home"
+        Icon="hone.png"
+        ContentTemplate="{DataTemplate views:HomeView}"
+        Route="Home" />
+    </TabBar>
 </Shell>
 
