@@ -52,6 +52,8 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="TinyMvvm.Maui" Version="4.0.1-pre14" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="4.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -62,19 +64,29 @@
 	  <None Remove="TinyMvvm.Maui" />
 	  <None Remove="Services\" />
 	  <None Remove="Models\" />
+	  <None Remove="Resources\Images\ic_home.svg" />
+	  <None Remove="CommunityToolkit.Mvvm" />
+	  <None Remove="Resources\.DS_Store" />
+	  <None Remove="CommunityToolkit.Maui" />
+	  <None Remove="Behaviors\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Views\" />
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Services\" />
 	  <Folder Include="Models\" />
+	  <Folder Include="Behaviors\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <MauiXaml Update="Views\LoginView.xaml">
 	    <SubType></SubType>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\HomeView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Images\singer.jpg" />
+	  <BundleResource Include="Resources\.DS_Store" />
 	</ItemGroup>
 </Project>
