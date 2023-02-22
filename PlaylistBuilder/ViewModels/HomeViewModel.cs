@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace PlaylistBuilder.ViewModels;
+﻿namespace PlaylistBuilder.ViewModels;
 
 public partial class HomeViewModel : ViewModel
 {
@@ -48,6 +46,7 @@ public partial class HomeViewModel : ViewModel
 
             var artists = result.Artists.Items.Select(x => new SearchItemViewModel()
             {
+                Id = x.Id,
                 Title = x.Name,
                 ImageUrl = x.Images.Any() ?  x.Images.First().Url : null,
                 TapCommand = NavigateToArtistCommand,
@@ -57,6 +56,7 @@ public partial class HomeViewModel : ViewModel
 
             var albums = result.Albums.Items.Select(x => new SearchItemViewModel()
             {
+                Id = x.Id,
                 Title = x.Name,
                 ImageUrl = x.Images.Any() ? x.Images.First().Url : null,
                 TapCommand = NavigateToAlbumCommand,
@@ -66,6 +66,7 @@ public partial class HomeViewModel : ViewModel
 
             var tracks = result.Tracks.Items.Select(x => new SearchItemViewModel()
             {
+                Id = x.Id,
                 Title = x.Name,
                 SubTitle = x.Artists.Any() ?  x.Artists.First().Name : null,
                 ImageUrl = x.Album.Images.Any() ? x.Album.Images.First().Url : null,
@@ -85,19 +86,19 @@ public partial class HomeViewModel : ViewModel
     }
 
     [RelayCommand]
-    private void NavigateToArtist()
+    private async Task NavigateToArtist(string id)
+    {
+        await Navigation.NavigateTo("Artist", id);
+    }
+
+    [RelayCommand]
+    private void NavigateToAlbum(string id)
     {
 
     }
 
     [RelayCommand]
-    private void NavigateToAlbum()
-    {
-
-    }
-
-    [RelayCommand]
-    private void NavigateToTrack()
+    private void NavigateToTrack(string id)
     {
 
     }
@@ -105,6 +106,7 @@ public partial class HomeViewModel : ViewModel
 
 public class SearchItemViewModel : ViewModel
 {
+    public string Id { get; set; }
     public string Title { get; set; }
     public string SubTitle { get; set; }
     public string ImageUrl { get; set; }

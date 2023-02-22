@@ -16,7 +16,7 @@
 		<ApplicationTitle>PlaylistBuilder</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.playlistbuilder</ApplicationId>
+		<ApplicationId>se.hindrikes.Playlist</ApplicationId>
 		<ApplicationIdGuid>a604e569-2278-44ef-acd7-ca2f39648c38</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -32,6 +32,12 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	  <CodesignKey>iPhone Developer</CodesignKey>
+	  <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+	  <CodesignProvision>Automatic</CodesignProvision>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<ItemGroup>
@@ -69,6 +75,7 @@
 	  <None Remove="Resources\.DS_Store" />
 	  <None Remove="CommunityToolkit.Maui" />
 	  <None Remove="Behaviors\" />
+	  <None Remove="Converters\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Views\" />
@@ -76,6 +83,10 @@
 	  <Folder Include="Services\" />
 	  <Folder Include="Models\" />
 	  <Folder Include="Behaviors\" />
+	  <Folder Include="Converters\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <MauiXaml Remove="Resources\Styles\Styles %28copy%29.xaml" />
 	</ItemGroup>
 	<ItemGroup>
 	  <MauiXaml Update="Views\LoginView.xaml">
@@ -88,5 +99,10 @@
 	<ItemGroup>
 	  <BundleResource Include="Resources\Images\singer.jpg" />
 	  <BundleResource Include="Resources\.DS_Store" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Platforms\iOS\Entitlements.plist">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 </Project>

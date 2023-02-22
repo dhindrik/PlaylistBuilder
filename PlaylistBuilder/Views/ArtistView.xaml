@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvvm:TinyView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
+               xmlns:vm="clr-namespace:PlaylistBuilder.ViewModels"
+               xmlns:converters="clr-namespace:PlaylistBuilder.Converters"
+               x:Class="PlaylistBuilder.Views.ArtistView"
+             x:DataType="vm:ArtistViewModel"
+               Title="{Binding Name}">
+    <mvvm:TinyView.Resources>
+        <converters:ViewToColumnWidthConverter x:Key="ToColumnWidth" NumberOfColumns="2" Deducation="40" />
+    </mvvm:TinyView.Resources>
+    <Grid x:Name="MainContent">
+        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+        <CollectionView IsVisible="{Binding IsNotBusy}"
+                        ItemsSource="{Binding Albums}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
+                                 Span="2" VerticalItemSpacing="20" />
+
+            </CollectionView.ItemsLayout>
+            <CollectionView.Header>
+                <VerticalStackLayout>
+                    <Grid HeightRequest="400"
+                          HorizontalOptions="Fill">
+                        <Image Aspect="AspectFill" Source="{Binding TopImage}" />
+                        <ContentView Padding="10"
+                             BackgroundColor="#AA000000"
+                             VerticalOptions="End">
+                            <Label Text="{Binding Followers, StringFormat='{0:N0} followers'}" TextColor="White" />
+
+                        </ContentView>
+
+                    </Grid>
+                    <Label Margin="10" Text="Albums" FontSize="Title" />
+                </VerticalStackLayout>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:SearchItemViewModel">
+                    <VerticalStackLayout Padding="10">
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding TapCommand}"
+                                      CommandParameter="{Binding Id}" />
+
+                        </VerticalStackLayout.GestureRecognizers>
+                        <Image Source="{Binding ImageUrl, Mode=OneTime}"
+                             HeightRequest="{Binding Source={x:Reference MainContent}, Path=., Converter={StaticResource ToColumnWidth}}"
+                             WidthRequest="{Binding Source={x:Reference MainContent}, Path=., Converter={StaticResource ToColumnWidth}}"
+                             Aspect="AspectFill" HorizontalOptions="Start"/>
+                        <Label Text="{Binding Title}" />
+                    </VerticalStackLayout>
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</mvvm:TinyView>

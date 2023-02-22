@@ -10,6 +10,21 @@
              x:Name="ThisPage">
     <mvvm:TinyView.Resources>
         <toolkit:InvertedBoolConverter x:Key="InvertBool" />
+        <DataTemplate x:Key="ImageTitleTemplate" x:DataType="vm:SearchItemViewModel">
+        <VerticalStackLayout Padding="10" WidthRequest="150">
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding TapCommand}"
+                                      CommandParameter="{Binding Id}" />
+
+            </VerticalStackLayout.GestureRecognizers>
+            <Image Source="{Binding ImageUrl, Mode=OneTime}"
+                             HeightRequest="150"
+                             WidthRequest="150"
+                             Aspect="AspectFill" HorizontalOptions="Start"/>
+            <Label Text="{Binding Title}" />
+        </VerticalStackLayout>
+    </DataTemplate>
+
     </mvvm:TinyView.Resources>
     <Shell.TitleView>
         <SearchBar IsVisible="{Binding IsSearching}"
@@ -35,35 +50,17 @@
                 </SearchBar>
                 <VerticalStackLayout IsVisible="{Binding HasResult}" Spacing="10">
                     <Label Text="Artists" FontSize="Title" />
-                    <CollectionView ItemsSource="{Binding Artists}" ItemsLayout="HorizontalList">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="vm:SearchItemViewModel">
-                                <VerticalStackLayout Padding="0,0,10,0" WidthRequest="150">
-                                    <Image Source="{Binding ImageUrl, Mode=OneTime}"
-                             WidthRequest="150"
-                             HeightRequest="150"
-                             Aspect="AspectFill"/>
-                                    <Label Text="{Binding Title}" />
-                                </VerticalStackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                    <CollectionView HeightRequest="200"
+                                    ItemsSource="{Binding Artists}"
+                                    ItemsLayout="HorizontalList"
+                                    ItemTemplate="{StaticResource ImageTitleTemplate}" />
                     <Label Text="Albums" FontSize="Title" />
-                    <CollectionView ItemsSource="{Binding Albums}" ItemsLayout="HorizontalList">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="vm:SearchItemViewModel">
-                                <VerticalStackLayout Padding="0,0,10,0" WidthRequest="150">
-                                    <Image Source="{Binding ImageUrl, Mode=OneTime}"
-                             WidthRequest="150"
-                             HeightRequest="150"
-                             Aspect="AspectFill"/>
-                                    <Label Text="{Binding Title}" />
-                                </VerticalStackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                    <CollectionView HeightRequest="200"
+                                    ItemsSource="{Binding Albums}"
+                                    ItemsLayout="HorizontalList"
+                                    ItemTemplate="{StaticResource ImageTitleTemplate}" />
                     <Label Text="Tracks" FontSize="Title" />
-                    <CollectionView ItemsSource="{Binding Tracks}">
+                    <CollectionView  ItemsSource="{Binding Tracks}">
 
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="vm:SearchItemViewModel">
@@ -74,7 +71,7 @@
                              Aspect="AspectFill"/>
                                     <VerticalStackLayout>
                                         <Label Text="{Binding Title}" FontSize="Header" VerticalOptions="Center" />
-                                        <Label Text="{Binding Title}" FontSize="Caption" VerticalOptions="Center" />
+                                        <Label Text="{Binding SubTitle}" FontSize="Caption" VerticalOptions="Center" />
                                     </VerticalStackLayout>
                                 </HorizontalStackLayout>
                             </DataTemplate>
