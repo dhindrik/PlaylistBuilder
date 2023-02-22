@@ -17,6 +17,7 @@ global using System.Net;
 global using System.Text;
 global using System.Text.Json;
 global using System.Windows.Input;
+global using System.Collections.ObjectModel;
 
 global using CommunityToolkit.Maui;
 
@@ -43,14 +44,23 @@ public static class MauiProgram
 
 		builder.Services.AddTransient<LoginViewModel>();
         builder.Services.AddTransient<HomeViewModel>();
+        builder.Services.AddTransient<ArtistViewModel>();
 
         builder.Services.AddTransient<LoginView>();
         builder.Services.AddTransient<HomeView>();
+        builder.Services.AddTransient<ArtistView>();
 
         builder.Services.AddSingleton<ISpotifyService, SpotifyService>();
         builder.Services.AddSingleton<ISecureStorageService, SecureStorageService>();
 
+		RegisterRoutes();
+
         return builder.Build();
+	}
+
+	private static void RegisterRoutes()
+	{
+		Routing.RegisterRoute("Artist", typeof(ArtistView));
 	}
 }
 

@@ -44,7 +44,7 @@ public partial class LoginViewModel : ViewModel
 
 		if(result)
 		{
-			await Navigation.NavigateTo("Home");
+			await Navigation.NavigateTo("//Home");
 		}
 	}
 }

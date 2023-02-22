@@ -14,7 +14,7 @@
     <TabBar Route="Main">
         <ShellContent
         Title="Home"
-        Icon="hone.png"
+        Icon="ic_home.png"
         ContentTemplate="{DataTemplate views:HomeView}"
         Route="Home" />
     </TabBar>
