@@ -98,7 +98,6 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Images\singer.jpg" />
-	  <BundleResource Include="Resources\.DS_Store" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Update="Platforms\iOS\Entitlements.plist">
